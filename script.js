@@ -1,17 +1,21 @@
 const box = document.getElementById("products");
 
-fetch("https://fakestoreapi.com/products?limit=8")
+fetch("https://dummyjson.com/products?limit=8")
   .then(function (response) {
     return response.json();
   })
-  .then(function (products) {
+  .then(function (data) {
     box.innerHTML = "";
-    products.forEach(function (item) {
+    data.products.forEach(function (item) {
       const card = document.createElement("div");
       card.className = "card";
 
       const img = document.createElement("img");
-      img.src = item.image;
+      img.src = item.thumbnail;
+      img.alt = item.title;
+      img.onerror = function () {
+        img.alt = "Picture not available";
+      };
 
       const title = document.createElement("h3");
       title.textContent = item.title;

@@ -1,6 +1,20 @@
-const button = document.getElementById("offerBtn");
-const message = document.getElementById("message");
+const box = document.getElementById("products");
 
-button.addEventListener("click", function () {
-  message.textContent = "Welcome! Today's offer is 10% off.";
-});
+fetch("https://fakestoreapi.com/products?limit=8")
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (products) {
+    box.innerHTML = "";
+    products.forEach(function (item) {
+      box.innerHTML +=
+        '' +
+        '' +
+        '' + item.title + '' +
+        ' $' + item.price + '' +
+        '';
+    });
+  })
+  .catch(function () {
+    box.textContent = "Could not load products.";
+  });
